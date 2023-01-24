@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import "./TopNManager.css";
 import ManagerDetails from "./ManagerDetails";
 
 export default class TopNManagers extends React.Component {
@@ -15,6 +16,19 @@ export default class TopNManagers extends React.Component {
   }
 
   componentDidMount() {
+    // grab the current gameweek
+    axios
+      .get("https://fantasy.premierleague.com/api/event-status/")
+      .then((res) => {
+        this.currentGW = res.data.status[0].event;
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .finally(function () {
+        // always executed
+      });
+
     // grab the standings from overall league (id=314)
     axios
       .get(
@@ -37,13 +51,13 @@ export default class TopNManagers extends React.Component {
   render() {
     return (
       <div>
-        <ul>
+        <ol>
           {this.topN.map((person) => (
-            <li key={person.id}>
+            <li class="" key={person.id}>
               <ManagerDetails manager={person} />
             </li>
           ))}
-        </ul>
+        </ol>
       </div>
     );
   }

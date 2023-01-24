@@ -80,27 +80,31 @@ export default class ManagerTransfers extends React.Component {
     return (
       <div>
         <div>
-          <table>
-            <thead>
-              <tr>
-                <th>In</th>
-                <th>Out</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.transferredIn.map((item, idx) => (
-                <tr key={idx}>
-                  <td>
-                    {" "}
-                    <PlayerLookup player_id={item} />{" "}
-                  </td>
-                  <td>
-                    <PlayerLookup player_id={this.transferredOut[idx]} />{" "}
-                  </td>
+          {this.transferredIn.length === 0 ? (
+            <h4>No new transfers</h4>
+          ) : (
+            <table>
+              <thead>
+                <tr>
+                  <th>In</th>
+                  <th>Out</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {this.transferredIn.map((item, idx) => (
+                  <tr key={idx}>
+                    <td>
+                      {" "}
+                      <PlayerLookup player_id={item} />{" "}
+                    </td>
+                    <td>
+                      <PlayerLookup player_id={this.transferredOut[idx]} />{" "}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
     );
